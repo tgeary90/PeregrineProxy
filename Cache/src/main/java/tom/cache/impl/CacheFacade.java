@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import tom.cache.Handler;
+import tom.cache.CacheClient;
 import tom.cache.Logger;
 import tom.cache.Resource;
 
@@ -101,7 +101,7 @@ public class CacheFacade
 		return instance;
 	}
 	
-	public void retrieve(WebResource resource, Handler handle)
+	public void retrieve(WebResource resource, CacheClient handle)
 	{
 		String key = resource.getKey();
 		System.out.println("per_cm: starting retrieval... " + key);
@@ -223,7 +223,7 @@ public class CacheFacade
 	 * ThreadPoolExecutor. The validation task is offloaded so that parallelism
 	 * may be exploited
 	 */
-	private void fetch(String key, Handler handle)
+	private void fetch(String key, CacheClient handle)
 	{
 
 		/*

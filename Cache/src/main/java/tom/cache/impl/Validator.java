@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 
-import tom.cache.Handler;
+import tom.cache.CacheClient;
 import tom.cache.Logger;
 import tom.cache.Resource;
 
@@ -26,7 +26,7 @@ class Validator implements Runnable
 	 */
 
 	private HttpURLConnection HttpURL;
-	private Handler handle;
+	private CacheClient handle;
 	private URL url;
 	private Date date;
 	private String urlString, key;
@@ -39,7 +39,7 @@ class Validator implements Runnable
 	private final int FRESH = 3600;
 	private Logger logger;
 
-	public Validator(WebResource resource, Handler handle, Logger logger)
+	public Validator(WebResource resource, CacheClient handle, Logger logger)
 	{
 		this.resource = resource;
 		this.handle = handle;

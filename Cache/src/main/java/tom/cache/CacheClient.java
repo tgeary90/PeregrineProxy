@@ -17,8 +17,7 @@ package tom.cache;
 import tom.cache.Resource;
 
 
-public interface Handler
+public interface CacheClient
 {
-    public void handle();
     public void validated(Resource resource);
 }

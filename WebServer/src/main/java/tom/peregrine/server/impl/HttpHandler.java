@@ -32,18 +32,16 @@ import java.util.logging.Logger;
 import tom.apps.framework.ChannelFacade;
 import tom.apps.framework.InputHandler;
 import tom.apps.framework.InputQueue;
-import tom.cache.Handler;
+import tom.cache.CacheClient;
 import tom.cache.impl.CacheFacade;
 import tom.cache.impl.WebResource;
 import tom.peregrine.client.PassHandler;
 import tom.peregrine.client.impl.HttpBlockingPassHandler;
 import tom.peregrine.server.Plugin;
 
-public class HttpHandler implements InputHandler, Handler
+public class HttpHandler implements InputHandler, CacheClient
 {
 	private CacheFacade cacheFacade;
-
-	/* Derived from Decorator Pattern: wraps BufferedInputStream */
 	private Date now, lastMod;
 	private int c, idx, conLength;
 	private StringBuilder sb;
@@ -83,12 +81,6 @@ public class HttpHandler implements InputHandler, Handler
 	{
 		this.resource = resource;
 	}
-
-	public void handle()
-	{
-		// future proofing
-	}
-
 
 	public ByteBuffer nextMessage(ChannelFacade channelFacade)
 	{

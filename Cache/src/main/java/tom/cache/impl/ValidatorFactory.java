@@ -1,6 +1,6 @@
 package tom.cache.impl;
 
-import tom.cache.Handler;
+import tom.cache.CacheClient;
 import tom.cache.Logger;
 import tom.cache.Resource;
 
@@ -21,7 +21,7 @@ public class ValidatorFactory
 		validator = null;
 	}
 	
-	public Runnable getValidator(WebResource resource, Handler handler, Logger logger)
+	public Runnable getValidator(WebResource resource, CacheClient handler, Logger logger)
 	{
 		if (validator == null)
 		{
