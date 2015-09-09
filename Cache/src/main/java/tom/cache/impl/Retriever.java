@@ -27,12 +27,12 @@ class Retriever implements Callable<Resource>
 	private InputStream bin;
 	private int contentLength, bytesRead, offset;
 	private Date date;
-	private WebResource resource;
+	private Resource resource;
 	private String urlString;
 	private byte[] data;
 	private Logger logger;
 
-	public Retriever(WebResource resource)
+	public Retriever(Resource resource)
 	{
 		this.resource = resource;
 		contentLength = bytesRead = offset = 0;
@@ -51,13 +51,13 @@ class Retriever implements Callable<Resource>
 	 * Pulls the raw data down from the origin server and populates resource
 	 * object
 	 */
-	private Resource getResourceData(WebResource resource)
+	private Resource getResourceData(Resource resource)
 	{
 		try
 		{
 
 			/* setup comms link to origin */
-			urlString = resource.getURL();
+			urlString = resource.getUrl();
 			System.out.println("per_cm: getting resource.. " + urlString);
 			url = new URL(urlString);
 			HttpURL = (HttpURLConnection) url.openConnection();

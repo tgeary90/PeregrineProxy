@@ -43,11 +43,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.log4j.Logger;
+
+import tom.cache.Cache;
 import tom.cache.CacheClient;
-import tom.cache.Logger;
 import tom.cache.Resource;
 
-public class CacheFacade
+public class HttpCache implements Cache
 {
 	/* lock: guards access to thread pool and hits, misses variables */
 	private final Lock lock;
@@ -61,14 +63,14 @@ public class CacheFacade
 	private final int TIMEOUT;
 	private final int QUEUE_LENGTH;
 
-	private Logger safeLogger;
-	private static CacheFacade instance = null;
+	private tom.cache.Logger safeLogger;
+	private static HttpCache instance = null;
 	
 	// the underlying caching data structure matches a string key
 	// against a promise to return a resource. Blocks during call.
 	private ConcurrentHashMap<String, FutureTask<Resource>> cache; 
 
-	private CacheFacade(
+	private HttpCache(
 			int threads, 
 			int maxThreads,
 			int timeout,
@@ -88,7 +90,7 @@ public class CacheFacade
 		safeLogger.start();
 	}
 
-	public static CacheFacade getInstance(
+	public static HttpCache getInstance(
 			int threads, 
 			int maxThreads,
 			int timeout,
@@ -96,20 +98,27 @@ public class CacheFacade
 	{
 		if (instance == null)
 		{
-			instance = new CacheFacade(threads, maxThreads, timeout, queueLength);
+			instance = new HttpCache(threads, maxThreads, timeout, queueLength);
 		}
 		return instance;
 	}
 	
-	public void retrieve(WebResource resource, CacheClient handle)
+	public void retrieve(Resource resource, CacheClient handle)
 	{
-		String key = resource.getKey();
-		System.out.println("per_cm: starting retrieval... " + key);
+		boolean safe = (resource instanceof WebResource);
+		assert safe : "resource is not a web resource!";
+		
+		WebResource webResource = (WebResource) resource;
+		String key = webResource.getKey();
+		
+		Logger s_log = Logger.getLogger(this.getClass());
+		s_log.debug("retrieve obj at key " + key);
+		
 
 		/*
 		 * load the resource into the cache if it isnt already
 		 */
-		load(key, resource);
+		load(key, webResource);
 
 		/*
 		 * fetch it from cache. Via origin if necessary. note. this will block

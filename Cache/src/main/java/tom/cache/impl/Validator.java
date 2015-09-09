@@ -34,12 +34,12 @@ class Validator implements Runnable
 	private InputStream raw;
 	private InputStream bin;
 	private int contentLength, bytesRead, offset, status;
-	private WebResource resource;
+	private Resource resource;
 	private byte[] data;
 	private final int FRESH = 3600;
 	private Logger logger;
 
-	public Validator(WebResource resource, CacheClient handle, Logger logger)
+	public Validator(Resource resource, CacheClient handle, Logger logger)
 	{
 		this.resource = resource;
 		this.handle = handle;
@@ -116,13 +116,13 @@ class Validator implements Runnable
 		}
 	}
 
-	private void resourceSanityCheck(WebResource resource, String note)
+	private void resourceSanityCheck(Resource resource, String note)
 	{
 		System.out.println(note + resource.getKey());
 		System.out.println(note + resource.getContentLength());
 		System.out.println(note + resource.getContentType());
 		System.out.println(note + resource.getLastMod().getTime());
-		System.out.println(note + resource.getURL());
+		System.out.println(note + resource.getUrl());
 		System.out.println(note + resource.getCachedDate().getTime());
 	}
 
@@ -131,13 +131,13 @@ class Validator implements Runnable
 	 * means that the resource has changed. A new copy of the resource is
 	 * included in the server response
 	 */
-	private WebResource conditionalGet(WebResource resource)
+	private Resource conditionalGet(Resource resource)
 	{
 		System.out.println("per_cm: performing freshness check on " + key);
 		try
 		{
 			/* setup comms to origin */
-			urlString = resource.getURL();
+			urlString = resource.getUrl();
 			url = new URL(urlString);
 			HttpURL = (HttpURLConnection) url.openConnection();
 		} catch (MalformedURLException mue)
@@ -165,7 +165,7 @@ class Validator implements Runnable
 		try
 		{
 			status = HttpURL.getResponseCode();
-			logger.log(resource.getURL() + " status: " + status);
+			logger.log(resource.getUrl() + " status: " + status);
 			if (status == 304)
 			{
 				/* update cache metadata: set cachedAt field */
@@ -219,7 +219,7 @@ class Validator implements Runnable
 			}
 		} catch (IOException ie)
 		{
-			logger.log(resource.getURL() + " validation failure");
+			logger.log(resource.getUrl() + " validation failure");
 			ie.printStackTrace();
 			try
 			{
@@ -227,7 +227,7 @@ class Validator implements Runnable
 				raw.close();
 			} catch (IOException ioe)
 			{
-				logger.log(resource.getURL() + " close stream error");
+				logger.log(resource.getUrl() + " close stream error");
 			}
 			return null;
 		}

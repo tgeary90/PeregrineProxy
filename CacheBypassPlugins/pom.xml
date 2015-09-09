@@ -32,7 +32,7 @@
 
 		<dependency>
 			<groupId>tom.peregrine.server</groupId>
-			<artifactId>WebServer</artifactId>
+			<artifactId>Peregrine</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

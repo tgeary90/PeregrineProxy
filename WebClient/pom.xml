@@ -38,5 +38,10 @@
 			<groupId>tom.apps.framework</groupId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>tom.peregrine.server</groupId>
+			<artifactId>Peregrine</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

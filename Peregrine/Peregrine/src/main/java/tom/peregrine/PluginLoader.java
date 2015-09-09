@@ -1,4 +1,4 @@
-package tom.peregrine.server;
+package tom.peregrine;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import tom.peregrine.server.Plugin;
 
 /** 
  * class to manage the process of loading plugins at runtime

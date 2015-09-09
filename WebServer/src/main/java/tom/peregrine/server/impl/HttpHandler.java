@@ -32,27 +32,28 @@ import java.util.logging.Logger;
 import tom.apps.framework.ChannelFacade;
 import tom.apps.framework.InputHandler;
 import tom.apps.framework.InputQueue;
+import tom.cache.Cache;
 import tom.cache.CacheClient;
-import tom.cache.impl.CacheFacade;
-import tom.cache.impl.WebResource;
-import tom.peregrine.client.PassHandler;
-import tom.peregrine.client.impl.HttpBlockingPassHandler;
+import tom.cache.Resource;
+import tom.cache.ResourceFactory;
+import tom.peregrine.server.PassHandler;
 import tom.peregrine.server.Plugin;
 
 public class HttpHandler implements InputHandler, CacheClient
 {
-	private CacheFacade cacheFacade;
+	private Cache cacheFacade;
 	private Date now, lastMod;
 	private int c, idx, conLength;
 	private StringBuilder sb;
 	private String get, method, file, version, urlString;
 	private String ext, conType, encoding;
-	private WebResource resource;
+	private Resource resource;
 	private String[] headers;
 	private StringTokenizer st;
 	private byte[] respHeaders;
 	private URL url;
 	private final String LINE_SEP = "\r\n";
+	private ResourceFactory resourceFactory;
 
 	/* the origin web server. We're accelerating this site ... */
 	private String origin;
@@ -66,18 +67,21 @@ public class HttpHandler implements InputHandler, CacheClient
 	 * Constructor takes a socket to complete the pipeline with, or offload to
 	 * the ProxyPassHandler in the case of dynamic content
 	 */
-	public HttpHandler(CacheFacade cache, String origin, List<Plugin> plugins)
+	public HttpHandler(Cache cache, String origin, List<Plugin> plugins, ResourceFactory resourceFactory)
 	{
 		this.cacheFacade = cache;
 		logger = Logger.getLogger(HttpHandler.class.toString());
-		passHandler = new HttpBlockingPassHandler();
+		// TODO fix TG
+		
+		this.passHandler = null;
 		this.origin = origin;
 		this.plugins = plugins;
+		this.resourceFactory = resourceFactory;
 	}
 
 
 	/* callback method used by Validator to signal fresh resource */
-	public void validated(WebResource resource)
+	public void validated(Resource resource)
 	{
 		this.resource = resource;
 	}
@@ -308,9 +312,7 @@ public class HttpHandler implements InputHandler, CacheClient
 			headers[i] = toks[i];
 		}
 		
-		// populate the headers
-		// TODO this should be a factory call (DI)
-		resource = new WebResource(urlString, headers);
+		resource = resourceFactory.getInstance(urlString, headers);
 	}
 
 	public void starting(ChannelFacade channelFacade)
@@ -333,11 +335,6 @@ public class HttpHandler implements InputHandler, CacheClient
 
 	public void stopped(ChannelFacade channelFacade)
 	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void validated(tom.cache.Resource resource) {
 		// TODO Auto-generated method stub
 		
 	}

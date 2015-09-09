@@ -23,7 +23,6 @@ import tom.utils.Jdom2XmlHelper;
 public abstract class Resource
 {
 	private PersistResource serialized = new AsXml();
-	
 	private UUID id;
 	private String key;
 	private Calendar lastMod;
@@ -31,8 +30,42 @@ public abstract class Resource
 	private byte[] data;
 	private int contentLength;
 	private boolean fresh;
-
+	private String url;
+	private String[] headers;
+	private String contentType;
+	
 	public abstract String getRoot();
+	
+	public Resource(String url, String[] headers) {
+		this.url = url;
+		this.headers = headers;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String[] getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(String[] headers) {
+		this.headers = headers;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+	
+
 	
     public PersistResource getSerialized() {
 		return serialized;

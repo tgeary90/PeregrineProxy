@@ -1,4 +1,4 @@
-package tom.peregrine.server;
+package tom.peregrine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,11 +15,12 @@ import tom.apps.framework.BufferFactory;
 import tom.apps.framework.impl.DumbBufferFactory;
 import tom.apps.framework.impl.NioDispatcher;
 import tom.apps.framework.impl.StandardAcceptor;
-import tom.cache.impl.CacheFacade;
-import tom.cache.impl.CacheFacadeFactory;
-import tom.peregrine.server.impl.HttpHandlerFactory;
+import tom.cache.Cache;
+import tom.cache.CacheFactory;
+import tom.cache.ResourceFactory;
+import tom.peregrine.server.Plugin;
 
-public class PeregrineServer
+public class PeregrineMain
 {
 	private String origin;
 	private int port;
@@ -32,10 +33,10 @@ public class PeregrineServer
 
 	public static void main(String[] args) 
 	{
-		new PeregrineServer().go();
+		new PeregrineMain().go();
 	}
 	
-	public PeregrineServer()
+	public PeregrineMain()
 	{ 
 		// read in properties (port, loglevel, thread #, etc)
 		init();
@@ -50,16 +51,20 @@ public class PeregrineServer
 		StandardAcceptor acceptor = null;
 	
 		// prime factories
-		CacheFacade cache = CacheFacadeFactory.getInstance(
+		HttpCacheFactory cacheFactory = new HttpCacheFactory();
+		Cache cache = cacheFactory.getInstance(
 				threads, maxThreads, timeout, queueLength);
+		 
 		PluginLoader loader = new PluginLoader();
 		List<Plugin> plugins = loader.loadPlugins();
 		
 		
+		ResourceFactory resourceFactory = new WebResourceFactory();
 		HttpHandlerFactory handlerFactory = new HttpHandlerFactory();
 		handlerFactory.setOrigin(origin);
 		handlerFactory.setCache(cache);
 		handlerFactory.setPlugins(plugins);
+		handlerFactory.setResourceFactory(resourceFactory);
 
 		
 		try
@@ -90,7 +95,7 @@ public class PeregrineServer
 			origin = props.getProperty("origin");
 			
 			// logger setup
-			s_logger = Logger.getLogger(PeregrineServer.class);
+			s_logger = Logger.getLogger(PeregrineMain.class);
 			InputStream log4jConfigFileStream = getClass().getResourceAsStream("/log4j.properties");
 			PropertyConfigurator.configure(log4jConfigFileStream);
 			

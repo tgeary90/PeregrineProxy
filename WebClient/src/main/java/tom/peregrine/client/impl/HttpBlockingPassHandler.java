@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import tom.apps.framework.ChannelFacade;
-import tom.peregrine.client.PassHandler;
+import tom.peregrine.server.PassHandler;
 
 public class HttpBlockingPassHandler extends PassHandler
 {
