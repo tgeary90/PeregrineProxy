@@ -14,33 +14,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<artifactId>log4j</artifactId>
-			<groupId>log4j</groupId>
-			<version>1.2.17</version>
-		</dependency>
-		<dependency>
-			<artifactId>jdom2</artifactId>
-			<groupId>org.jdom</groupId>
-			<version>2.0.6</version>
-		</dependency>
-		<dependency>
-			<groupId>tom.utils</groupId>
-			<artifactId>Helpers</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-		  	<groupId>tom.cache</groupId>
-  			<artifactId>Cache</artifactId>
-  			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<artifactId>HttpFramework</artifactId>
 			<groupId>tom.apps.framework</groupId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>tom.peregrine.server</groupId>
-			<artifactId>Peregrine</artifactId>
+			<artifactId>WebServer</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

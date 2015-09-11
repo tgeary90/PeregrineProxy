@@ -31,9 +31,8 @@ import java.util.logging.Logger;
 import tom.apps.framework.ChannelFacade;
 import tom.peregrine.server.PassHandler;
 
-public class HttpBlockingPassHandler extends PassHandler
+public class HttpBlockingPassHandler implements PassHandler
 {
-	@Override
 	public void invoke(ChannelFacade facade, URL url) {
 		Logger logger = 
 				Logger.getLogger(HttpBlockingPassHandler.class.toString());
