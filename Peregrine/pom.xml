@@ -2,44 +2,36 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>tom.peregrine</groupId>
-	<artifactId>Peregrine</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>tom.apps.proxy</groupId>
+	<artifactId>peregrine</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Peregrine</name>
+	<name>peregrine</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+  <parent>
+  <groupId>tom.apps.proxy</groupId>
+  <artifactId>peregrineparent</artifactId>
+  <version>2.0-SNAPSHOT</version>
+ </parent>
+ 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<artifactId>HttpFramework</artifactId>
-			<groupId>tom.apps.framework</groupId>
-			<version>1.0-SNAPSHOT</version>
+			<artifactId>http-nio</artifactId>
+			<groupId>tom.frameworks</groupId>
  		</dependency>
 		<dependency>
-			<artifactId>log4j</artifactId>
-			<groupId>log4j</groupId>
-			<version>1.2.17</version>
+			<groupId>tom.apps.cache</groupId>
+			<artifactId>cache</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>tom.cache</groupId>
-			<artifactId>Cache</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>tom.peregrine.server</groupId>
-			<artifactId>WebServer</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>tom.apps.proxy.server</groupId>
+			<artifactId>web-server</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
@@ -55,7 +47,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>tom.peregrine.PeregrineMain</mainClass>
+							<mainClass>tom.apps.proxy.PeregrineMain</mainClass>
 						</manifest>
 						<manifestEntries>
 							<Class-Path>.</Class-Path>
