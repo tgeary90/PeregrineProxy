@@ -22,8 +22,7 @@ import tom.apps.proxy.server.Plugin;
  */
 public class PluginLoader
 {
-	//private static final String PLUGIN_JAR = "/CacheBypassPlugins-1.0-SNAPSHOT.jar";
-	private static final String PLUGIN_JAR = "/home/tom/.m2/repository/tom/msc/peregrine/CacheBypassPlugins/1.0-SNAPSHOT/CacheBypassPlugins-1.0-SNAPSHOT.jar";
+	private static final String PLUGIN_JAR = "/home/tom/.m2/repository/tom/apps/proxy/bypass/CacheBypassPlugins/1.0-SNAPSHOT/CacheBypassPlugins-1.0-SNAPSHOT.jar";
 	private static final String PLUGIN_DESC_FILE = "/plugin_descriptors";
 	
 	private static Logger s_logger = Logger.getLogger(PluginLoader.class); 

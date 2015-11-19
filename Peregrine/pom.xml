@@ -33,6 +33,40 @@
 			<groupId>tom.apps.proxy.server</groupId>
 			<artifactId>web-server</artifactId>
 		</dependency>
+  
+       <!--  required for packaging -->
+       <dependency>
+    <artifactId>http-nio</artifactId>
+    <groupId>tom.frameworks</groupId>
+   </dependency>
+   <dependency>
+    <groupId>tom.apps.cache</groupId>
+    <artifactId>cache</artifactId>
+   </dependency>
+   <dependency>
+    <groupId>tom.apps.proxy.server</groupId>
+    <artifactId>web-server</artifactId>
+   </dependency>
+   <dependency>
+    <artifactId>web-client</artifactId>
+    <groupId>tom.apps.proxy.client</groupId>
+   </dependency>
+   <dependency>
+    <groupId>tom.apps.proxy.bypass</groupId>
+    <artifactId>cache-bypass-plugins</artifactId>
+   </dependency>
+   <dependency>
+    <groupId>tom.helpers</groupId>
+    <artifactId>helpers</artifactId>
+   </dependency>
+   <dependency>
+    <groupId>tom.apps.proxy</groupId>
+    <artifactId>peregrine</artifactId>
+   </dependency>
+   <dependency>
+    <artifactId>jdom2</artifactId>
+    <groupId>org.jdom</groupId>
+   </dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

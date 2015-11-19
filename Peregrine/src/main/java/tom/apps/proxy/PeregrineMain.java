@@ -89,14 +89,16 @@ public class PeregrineMain
 		try
 		{
 			InputStream fis = getClass().getResourceAsStream("/peregrine.properties");
-			props.load(fis);
-			port = Integer.parseInt(props.getProperty("port"));
-			origin = props.getProperty("origin");
 			
 			// logger setup
 			s_logger = Logger.getLogger(PeregrineMain.class);
 			InputStream log4jConfigFileStream = getClass().getResourceAsStream("/log4j.properties");
 			PropertyConfigurator.configure(log4jConfigFileStream);
+			props.load(fis);
+			port = Integer.parseInt(props.getProperty("port"));
+			s_logger.info("binding to port " + port);
+			origin = props.getProperty("origin");
+			
 			
 			// Thread pool configuration
 			threads = Integer.parseInt(props.getProperty("threads"));

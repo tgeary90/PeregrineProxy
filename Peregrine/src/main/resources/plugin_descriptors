@@ -1,4 +1,4 @@
-tom.msc.peregrine.HtmlBypassPlugin
-tom.msc.peregrine.CssBypassPlugin
-tom.msc.peregrine.JavascriptBypassPlugin
-tom.msc.peregrine.ImageBypassPlugin
+tom.apps.proxy.bypass.HtmlBypassPlugin
+tom.apps.proxy.bypass.CssBypassPlugin
+tom.apps.proxy.bypass.JavascriptBypassPlugin
+tom.apps.proxy.bypass.ImageBypassPlugin
